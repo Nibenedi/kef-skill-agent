@@ -1,0 +1,20 @@
+name: test
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Installer syntax
+        run: /bin/bash -n install.sh
+      - name: Tests (system python3)
+        run: /usr/bin/python3 -m unittest discover -s tests -v
